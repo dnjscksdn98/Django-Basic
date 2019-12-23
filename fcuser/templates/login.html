@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block contents %}
+
+<div class="row mt-5">
+  <!-- text-center == text-align: center -->
+  <div class="col-12 text-center">
+    <h1>로그인</h1>
+  </div>
+</div>
+<!-- 비밀번호 입력 불일치시 오류 메시지를 같은 페이지에 매핑 -->
+<div class="row mt-5">
+  <div class="col-12">
+    {{ error }}
+  </div>
+</div>
+<!-- mt-5 == margin-top: 5 -->
+<div class="row mt-5">
+  <div class="col-12">
+    <!-- method : 어떤 HTTP 방식을 사용할 것인지 지정(POST, GET)
+         action : 데이터를 보낼 URL을 지정 -->
+    <!-- . : 현재 페이지에 POST 요청 -->
+    <form method="POST" action=".">
+      <!-- Django 사용시 입력해줘야함 -->
+      {% csrf_token %}
+
+      <!-- 템플릿 안에서의 반복문(for) -->
+      {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}
+        </label>
+        <!-- id와 for의 값은 일치해야함 -->
+        <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}"
+          placeholder="{{ field.label }}" name="{{ field.name }}" />
+      </div>
+
+      <!-- 템플릿 안에서의 조건문(if) -->
+      {% if field.errors %}
+      <span style="color: red">
+        {{ field.errors }}
+      </span>
+
+      {% endif %}
+      {% endfor %}
+
+      <!-- btn-primary : 파란색 버튼 -->
+      <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

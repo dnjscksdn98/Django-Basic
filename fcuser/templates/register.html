@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="row mt-5">
+  <!-- text-center : text-align center -->
+  <div class="col-12 text-center">
+    <h1>회원가입</h1>
+  </div>
+</div>
+<!-- 비밀번호 입력 불일치시 오류 메시지를 같은 페이지에 매핑 -->
+<div class="row mt-5">
+  <div class="col-12">
+    {{error}}
+  </div>
+</div>
+<!-- mt-5 : margin-top -5 -->
+<div class="row mt-5">
+  <div class="col-12">
+    <!-- method : 어떤 HTTP 방식을 사용할 것인지 지정(POST, GET)
+            action : 데이터를 보낼 URL을 지정 -->
+    <!-- . : 현재 페이지에 POST 요청 -->
+    <form method="POST" action=".">
+      <!-- Django 사용시 입력해줘야함 -->
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">사용자 이름</label>
+        <input type="text" class="form-control" id="username" placeholder="사용자 이름" name="username" />
+      </div>
+      <div class="form-group">
+        <label for="useremail">사용자 이메일</label>
+        <input type="email" class="form-control" id="useremail" placeholder="사용자 이메일" name="useremail" />
+      </div>
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" class="form-control" id="password" placeholder="비밀번호" name="password" />
+      </div>
+      <div class="form-group">
+        <label for="re-password">비밀번호 확인</label>
+        <input type="password" class="form-control" id="re-password" placeholder="비밀번호 확인" name="re-password" />
+      </div>
+      <!-- btn-primary : 파란색 버튼 -->
+      <button type="submit" class="btn btn-primary">등록</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
